@@ -3,7 +3,30 @@
 // Return example: 1902
 // Hint: use a Map data structure instead of an object if you want typescript to be happy
 
-export function getGreatestDiscoveryYear(asteroids) {}
+import { TAsteroid } from "../data/data";
+
+export function getGreatestDiscoveryYear(asteroids: TAsteroid[]): number {
+  const years = asteroids.map((asteroid) => asteroid.discoveryYear);
+
+  let highestYear = 0;
+  let highestCount = 0;
+  const testMap = new Map();
+  for (let year of years) {
+    if (testMap.get(year)) {
+      testMap.set(year, testMap.get(year) + 1);
+    } else {
+      testMap.set(year, 1)
+    };
+  }
+
+  for (let year of years) {
+    if (testMap.get(year) > highestCount) {
+      highestYear = year;
+      highestCount = testMap.get(year)
+    }
+  }
+  return highestYear;
+}
 
 // === TEST YOURSELF ===
 // Once you're finished run the test with "npm run test-16"
